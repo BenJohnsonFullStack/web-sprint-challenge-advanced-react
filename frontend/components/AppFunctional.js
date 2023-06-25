@@ -1,11 +1,15 @@
 import React, { useState } from 'react'
+import axios from 'axios';
+
+
+const URL = "http://localhost:9000/api/result";
 
 const initialValues = {
   initialMessage: '',
   initialEmail: '',
   initialSteps: 0,
   initialIndex: 4
-}
+};
 
 const gridArr = [0,1,2,3,4,5,6,7,8];
 
@@ -48,7 +52,21 @@ export default function AppFunctional(props) {
   }
 
   function onSubmit(evt) {
-    // Use a POST request to send a payload to the server.
+    axios.post(URL)
+    .then((res) => {
+      return `{
+        "x": ${x},
+        "y": ${y},
+        "steps": ${steps},
+        "email": ${email}
+      }`
+    })
+    .catch((err) => {
+      console.error(err);
+    })
+    .finally(() => {
+      setValues(initialValues);
+    })
   }
 
   return (
@@ -78,7 +96,7 @@ export default function AppFunctional(props) {
       </div>
       <form>
         <input onChange={onChange} id="email" type="email" placeholder="type email"></input>
-        <input id="submit" type="submit"></input>
+        <input onSubmit={onSubmit} id="submit" type="submit"></input>
       </form>
     </div>
   )
