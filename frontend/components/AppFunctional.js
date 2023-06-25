@@ -5,6 +5,8 @@ import axios from 'axios';
 const URL = "http://localhost:9000/api/result";
 
 const initialValues = {
+  initialY: '2',
+  initialX: '2',
   initialIndex: 4,
   initialMessage: '',
   initialEmail: '',
@@ -53,18 +55,19 @@ export default function AppFunctional(props) {
   }
 
   function onChange(evt) {
-    setEmail({ ...email, email: evt.target.value })
+    setEmail(evt.target.value);
   }
 
   function onSubmit(evt) {
-    axios.post(URL)
+    evt.preventDefault();
+    axios.post(URL, {
+      x: 2,
+      y: 2,
+      steps: 5,
+      email: email
+    })
     .then((res) => {
-      return `{
-        "x": ${x},
-        "y": ${y},
-        "steps": ${steps},
-        "email": ${email}
-      }`
+      setMessage(res.data.message);
     })
     .catch((err) => {
       console.error(err);
@@ -90,7 +93,7 @@ export default function AppFunctional(props) {
         }
       </div>
       <div className="info">
-        <h3 id="message"></h3>
+        <h3 id="message">{message}</h3>
       </div>
       <div id="keypad">
         <button id="left">LEFT</button>
@@ -99,9 +102,9 @@ export default function AppFunctional(props) {
         <button id="down">DOWN</button>
         <button onClick={reset} id="reset">reset</button>
       </div>
-      <form>
+      <form onSubmit={onSubmit}>
         <input onChange={onChange} id="email" type="email" placeholder="type email"></input>
-        <input onSubmit={onSubmit} id="submit" type="submit"></input>
+        <input id="submit" type="submit"></input>
       </form>
     </div>
   )
