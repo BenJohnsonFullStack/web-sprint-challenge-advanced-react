@@ -1,12 +1,14 @@
-import React from 'react'
+import React, { useState } from 'react'
 
-// Suggested initial states
-const initialMessage = ''
-const initialEmail = ''
-const initialSteps = 0
-const initialIndex = 4 // the index the "B" is at
+const initialValues = {
+  initialMessage: '',
+  initialEmail: '',
+  initialSteps: 0,
+  initialIndex: 4
+}
 
 export default function AppFunctional(props) {
+  const [values, setValues] = useState(initialValues)
   // THE FOLLOWING HELPERS ARE JUST RECOMMENDATIONS.
   // You can delete them and build your own logic from scratch.
 
@@ -22,7 +24,7 @@ export default function AppFunctional(props) {
   }
 
   function reset() {
-    // Use this helper to reset all states to their initial values.
+    setValues(initialValues);
   }
 
   function getNextIndex(direction) {
@@ -67,7 +69,7 @@ export default function AppFunctional(props) {
         <button id="up">UP</button>
         <button id="right">RIGHT</button>
         <button id="down">DOWN</button>
-        <button id="reset">reset</button>
+        <button onClick ={reset} id="reset">reset</button>
       </div>
       <form>
         <input id="email" type="email" placeholder="type email"></input>
