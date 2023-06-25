@@ -10,6 +10,7 @@ const initialValues = {
 const gridArr = [0,1,2,3,4,5,6,7,8];
 
 export default function AppFunctional(props) {
+  const [values, setValues] = useState(initialValues);
   const [message, setMessage] = useState(initialValues.initialMessage);
   const [email, setEmail] = useState(initialValues.initialEmail);
   const [steps, setSteps] = useState(initialValues.initialSteps);
@@ -43,7 +44,7 @@ export default function AppFunctional(props) {
   }
 
   function onChange(evt) {
-    // You will need this to update the value of the input.
+    setEmail({ ...email, email: evt.target.value })
   }
 
   function onSubmit(evt) {
@@ -76,7 +77,7 @@ export default function AppFunctional(props) {
         <button onClick={reset} id="reset">reset</button>
       </div>
       <form>
-        <input id="email" type="email" placeholder="type email"></input>
+        <input onChange={onChange} id="email" type="email" placeholder="type email"></input>
         <input id="submit" type="submit"></input>
       </form>
     </div>
