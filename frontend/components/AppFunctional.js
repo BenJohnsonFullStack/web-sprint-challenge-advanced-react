@@ -7,14 +7,18 @@ const initialValues = {
   initialIndex: 4
 }
 
+const gridArr = [0,1,2,3,4,5,6,7,8];
+
 export default function AppFunctional(props) {
-  const [values, setValues] = useState(initialValues)
+  const [message, setMessage] = useState(initialValues.initialMessage);
+  const [email, setEmail] = useState(initialValues.initialEmail);
+  const [steps, setSteps] = useState(initialValues.initialSteps);
+  const [index, setIndex] = useState(initialValues.initialIndex);
   // THE FOLLOWING HELPERS ARE JUST RECOMMENDATIONS.
   // You can delete them and build your own logic from scratch.
 
   function getXY() {
-    // It it not necessary to have a state to track the coordinates.
-    // It's enough to know what index the "B" is at, to be able to calculate them.
+    // if()
   }
 
   function getXYMessage() {
@@ -49,14 +53,14 @@ export default function AppFunctional(props) {
   return (
     <div id="wrapper" className={props.className}>
       <div className="info">
-        <h3 id="coordinates">Coordinates (2, 2)</h3>
+        <h3 id="coordinates">Coordinates {getXY()}</h3>
         <h3 id="steps">You moved 0 times</h3>
       </div>
       <div id="grid">
         {
-          [0, 1, 2, 3, 4, 5, 6, 7, 8].map(idx => (
-            <div key={idx} className={`square${idx === 4 ? ' active' : ''}`}>
-              {idx === 4 ? 'B' : null}
+          gridArr.map(idx => (
+            <div key={idx} className={`square${idx === 6 ? ' active' : ''}`}>
+              {idx === 6 ? 'B' : null}
             </div>
           ))
         }
@@ -69,7 +73,7 @@ export default function AppFunctional(props) {
         <button id="up">UP</button>
         <button id="right">RIGHT</button>
         <button id="down">DOWN</button>
-        <button onClick ={reset} id="reset">reset</button>
+        <button onClick={reset} id="reset">reset</button>
       </div>
       <form>
         <input id="email" type="email" placeholder="type email"></input>
