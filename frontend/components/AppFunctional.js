@@ -5,10 +5,10 @@ import axios from 'axios';
 const URL = "http://localhost:9000/api/result";
 
 const initialValues = {
+  initialIndex: 4,
   initialMessage: '',
   initialEmail: '',
-  initialSteps: 0,
-  initialIndex: 4
+  initialSteps: 0
 };
 
 const gridArr = [0,1,2,3,4,5,6,7,8];
@@ -23,13 +23,18 @@ export default function AppFunctional(props) {
   // You can delete them and build your own logic from scratch.
 
   function getXY() {
-    // if()
-  }
-
-  function getXYMessage() {
-    // It it not necessary to have a state to track the "Coordinates (2, 2)" message for the user.
-    // You can use the `getXY` helper above to obtain the coordinates, and then `getXYMessage`
-    // returns the fully constructed string.
+    let xCoord = '2';
+    let yCoord = '2';
+    gridArr.forEach(idx => { 
+      if(idx % 3 === 0) xCoord = '1';
+      else if(idx === 2 || idx === 5 || idx === 8) xCoord = '3';
+    })
+    gridArr.forEach(idx => {
+      if(idx <= 3 && idx <= 5 ) yCoord = '1';
+      else if(idx >= 6 && idx <= 8) yCoord = '3';
+    })
+    console.log(`(${xCoord}, ${yCoord})`);
+    return `(${xCoord}, ${yCoord})`;
   }
 
   function reset() {
@@ -78,8 +83,8 @@ export default function AppFunctional(props) {
       <div id="grid">
         {
           gridArr.map(idx => (
-            <div key={idx} className={`square${idx === 6 ? ' active' : ''}`}>
-              {idx === 6 ? 'B' : null}
+            <div key={idx} className={`square${idx === 4 ? ' active' : ''}`}>
+              {idx === 4 ? 'B' : null}
             </div>
           ))
         }
