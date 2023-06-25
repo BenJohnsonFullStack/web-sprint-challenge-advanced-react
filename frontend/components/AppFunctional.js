@@ -5,8 +5,6 @@ import axios from 'axios';
 const URL = "http://localhost:9000/api/result";
 
 const initialValues = {
-  initialY: '2',
-  initialX: '2',
   initialIndex: 4,
   initialMessage: '',
   initialEmail: '',
