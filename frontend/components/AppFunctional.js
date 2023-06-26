@@ -22,19 +22,36 @@ export default function AppFunctional(props) {
   // THE FOLLOWING HELPERS ARE JUST RECOMMENDATIONS.
   // You can delete them and build your own logic from scratch.
 
-  function getXY() {
-    let xCoord = '2';
-    let yCoord = '2';
-    gridArr.forEach(idx => { 
-      if(idx % 3 === 0) xCoord = '1';
-      else if(idx === 2 || idx === 5 || idx === 8) xCoord = '3';
-    })
-    gridArr.forEach(idx => {
-      if(idx <= 3 && idx <= 5 ) yCoord = '1';
-      else if(idx >= 6 && idx <= 8) yCoord = '3';
-    })
-    console.log(`(${xCoord}, ${yCoord})`);
-    return `(${xCoord}, ${yCoord})`;
+  function getXY(b, x, y) {
+    if(b === 0) {
+      x = 1;
+      y = 1;
+    } else if(b === 1) {
+      x = 2;
+      y = 1;
+    } else if(b === 2) {
+      x = 3;
+      y = 1;
+    } else if(b === 3) {
+      x = 1;
+      y = 2;
+    } else if(b === 4) {
+      x = 2;
+      y = 2;
+    } else if(b === 5) {
+      x = 3;
+      y = 2;
+    } else if(b === 6) {
+      x = 1;
+      y = 3;
+    } else if(b === 7) {
+      x = 2;
+      y = 3;
+    } else if(b === 8) {
+      x = 3;
+      y = 3;
+    }
+    return `Coordinates (${x}, ${y})`;
   }
 
   function reset() {
@@ -42,7 +59,9 @@ export default function AppFunctional(props) {
   }
 
   function getNextIndex(direction) {
-    // This helper takes a direction ("left", "up", etc) and calculates what the next index
+   //USE SWITCH// 
+   
+   // This helper takes a direction ("left", "up", etc) and calculates what the next index
     // of the "B" would be. If the move is impossible because we are at the edge of the grid,
     // this helper should return the current index unchanged.
   }
@@ -61,7 +80,7 @@ export default function AppFunctional(props) {
     axios.post(URL, {
       x: 2,
       y: 2,
-      steps: 5,
+      steps: steps,
       email: email
     })
     .then((res) => {
@@ -78,14 +97,14 @@ export default function AppFunctional(props) {
   return (
     <div id="wrapper" className={props.className}>
       <div className="info">
-        <h3 id="coordinates">Coordinates {getXY()}</h3>
-        <h3 id="steps">You moved 0 times</h3>
+        <h3 id="coordinates">Coordinates {getXY(index)}</h3>
+        <h3 id="steps">You moved {steps} times</h3>
       </div>
       <div id="grid">
         {
           gridArr.map(idx => (
-            <div key={idx} className={`square${idx === 4 ? ' active' : ''}`}>
-              {idx === 4 ? 'B' : null}
+            <div key={idx} className={`square${idx === index ? ' active' : ''}`}>
+              {idx === index ? 'B' : null}
             </div>
           ))
         }
