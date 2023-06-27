@@ -59,7 +59,24 @@ export default function AppFunctional(props) {
   }
 
   function getNextIndex(direction) {
-   //USE SWITCH// 
+      if(index % 3 === 0 && direction === "left") {
+      return index;
+    } else if(index >= 0 && index <= 2 && direction === "up") {
+      return index;
+    } else if(index >= 6 && index <= 8 && direction === "down") {
+      return index;
+    } else if(index === 2 || index === 5 || index === 8 && direction === "right") {
+      return index;
+    } else if(direction === "left") {
+      setIndex(index - 1);
+    } else if(direction === "up") {
+      setIndex(index - 3);
+    } else if(direction === "down") {
+      setIndex(index + 3);
+    } else if(direction === "right") {
+      setIndex(index + 1);
+    }
+    return index;
    
    // This helper takes a direction ("left", "up", etc) and calculates what the next index
     // of the "B" would be. If the move is impossible because we are at the edge of the grid,
@@ -67,6 +84,9 @@ export default function AppFunctional(props) {
   }
 
   function move(evt) {
+    getNextIndex(evt.target.id);
+    setSteps(steps + 1);
+    console.log(evt);
     // This event handler can use the helper above to obtain a new index for the "B",
     // and change any states accordingly.
   }
@@ -113,10 +133,10 @@ export default function AppFunctional(props) {
         <h3 id="message">{message}</h3>
       </div>
       <div id="keypad">
-        <button id="left">LEFT</button>
-        <button id="up">UP</button>
-        <button id="right">RIGHT</button>
-        <button id="down">DOWN</button>
+        <button id="left" onClick={move}>LEFT</button>
+        <button id="up" onClick={move}>UP</button>
+        <button id="right" onClick={move}>RIGHT</button>
+        <button id="down" onClick={move}>DOWN</button>
         <button onClick={reset} id="reset">reset</button>
       </div>
       <form onSubmit={onSubmit}>
