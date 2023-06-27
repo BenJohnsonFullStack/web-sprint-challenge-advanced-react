@@ -4,21 +4,18 @@ import axios from 'axios';
 
 const URL = "http://localhost:9000/api/result";
 
-const initialValues = {
-  initialIndex: 4,
-  initialMessage: '',
-  initialEmail: '',
-  initialSteps: 0
-};
+  const initialIndex = 4;
+  const initialMessage = '';
+  const initialEmail = '';
+  const initialSteps = 0;
 
 const gridArr = [0,1,2,3,4,5,6,7,8];
 
 export default function AppFunctional(props) {
-  const [values, setValues] = useState(initialValues);
-  const [message, setMessage] = useState(initialValues.initialMessage);
-  const [email, setEmail] = useState(initialValues.initialEmail);
-  const [steps, setSteps] = useState(initialValues.initialSteps);
-  const [index, setIndex] = useState(initialValues.initialIndex);
+  const [message, setMessage] = useState(initialMessage);
+  const [email, setEmail] = useState(initialEmail);
+  const [steps, setSteps] = useState(initialSteps);
+  const [index, setIndex] = useState(initialIndex);
   // THE FOLLOWING HELPERS ARE JUST RECOMMENDATIONS.
   // You can delete them and build your own logic from scratch.
 
@@ -55,7 +52,10 @@ export default function AppFunctional(props) {
   }
 
   function reset() {
-    setValues(initialValues);
+    setMessage(initialMessage);
+    setIndex(initialIndex);
+    setEmail(initialEmail);
+    setSteps(initialSteps);
   }
 
   function getNextIndex(direction) {
@@ -65,16 +65,20 @@ export default function AppFunctional(props) {
       return index;
     } else if(index >= 6 && index <= 8 && direction === "down") {
       return index;
-    } else if(index === 2 || index === 5 || index === 8 && direction === "right") {
+    } else if((index === 2 || index === 5 || index === 8) && direction === "right") {
       return index;
     } else if(direction === "left") {
       setIndex(index - 1);
+      setSteps(steps + 1);
     } else if(direction === "up") {
       setIndex(index - 3);
+      setSteps(steps + 1);
     } else if(direction === "down") {
       setIndex(index + 3);
+      setSteps(steps + 1);
     } else if(direction === "right") {
       setIndex(index + 1);
+      setSteps(steps + 1);
     }
     return index;
    
@@ -85,7 +89,6 @@ export default function AppFunctional(props) {
 
   function move(evt) {
     getNextIndex(evt.target.id);
-    setSteps(steps + 1);
     console.log(evt);
     // This event handler can use the helper above to obtain a new index for the "B",
     // and change any states accordingly.
@@ -110,7 +113,10 @@ export default function AppFunctional(props) {
       console.error(err);
     })
     .finally(() => {
-      setValues(initialValues);
+      setMessage(initialMessage);
+      setIndex(initialIndex);
+      setEmail(initialEmail);
+      setSteps(initialSteps);
     })
   }
 
