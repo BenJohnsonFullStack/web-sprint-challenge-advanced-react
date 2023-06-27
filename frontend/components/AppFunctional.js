@@ -60,12 +60,16 @@ export default function AppFunctional(props) {
 
   function getNextIndex(direction) {
       if(index % 3 === 0 && direction === "left") {
+      setMessage(`You can't go ${direction}`);
       return index;
     } else if(index >= 0 && index <= 2 && direction === "up") {
+      setMessage(`You can't go ${direction}`);
       return index;
     } else if(index >= 6 && index <= 8 && direction === "down") {
+      setMessage(`You can't go ${direction}`);
       return index;
     } else if((index === 2 || index === 5 || index === 8) && direction === "right") {
+      setMessage(`You can't go ${direction}`);
       return index;
     } else if(direction === "left") {
       setIndex(index - 1);
@@ -89,7 +93,6 @@ export default function AppFunctional(props) {
 
   function move(evt) {
     getNextIndex(evt.target.id);
-    console.log(evt);
     // This event handler can use the helper above to obtain a new index for the "B",
     // and change any states accordingly.
   }
