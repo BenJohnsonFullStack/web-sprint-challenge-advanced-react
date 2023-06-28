@@ -48,7 +48,7 @@ export default function AppFunctional(props) {
       x = 3;
       y = 3;
     }
-    return `Coordinates (${x}, ${y})`;
+    return `(${x}, ${y})`;
   }
 
   function reset() {
