@@ -112,7 +112,7 @@ export default function AppFunctional(props) {
 
   function onSubmit(evt) {
     evt.preventDefault();
-    let coordinates = getXY();
+    const coordinates = getXY();
     const [ x, y ] = coordinates;
     if(email === '') {
       setMessage("Ouch: email is required");

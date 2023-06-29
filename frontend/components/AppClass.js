@@ -24,36 +24,43 @@ export default class AppClass extends React.Component {
   // THE FOLLOWING HELPERS ARE JUST RECOMMENDATIONS.
   // You can delete them and build your own logic from scratch.
 
-  getXY = (b, x, y) => {
-    if(b === 0) {
+  getXY = () => {
+    let x, y;
+    if(this.state.index === 0) {
       x = 1;
       y = 1;
-    } else if(b === 1) {
+    } else if(this.state.index === 1) {
       x = 2;
       y = 1;
-    } else if(b === 2) {
+    } else if(this.state.index === 2) {
       x = 3;
       y = 1;
-    } else if(b === 3) {
+    } else if(this.state.index === 3) {
       x = 1;
       y = 2;
-    } else if(b === 4) {
+    } else if(this.state.index === 4) {
       x = 2;
       y = 2;
-    } else if(b === 5) {
+    } else if(this.state.index === 5) {
       x = 3;
       y = 2;
-    } else if(b === 6) {
+    } else if(this.state.index === 6) {
       x = 1;
       y = 3;
-    } else if(b === 7) {
+    } else if(this.state.index === 7) {
       x = 2;
       y = 3;
-    } else if(b === 8) {
+    } else if(this.state.index === 8) {
       x = 3;
       y = 3;
     }
-    return `(${x}, ${y})`;
+    return [x,y];
+  }
+
+  getXYMessage() {
+    let coordinates = this.getXY();
+    const [ x, y ] = coordinates;
+    return `Coordinates (${x}, ${y})`;
   }
 
   reset = () => {
@@ -100,12 +107,15 @@ export default class AppClass extends React.Component {
 
   onSubmit = (evt) => {
     evt.preventDefault();
+    const coordinates = this.getXY();
+    const [ x, y ] = coordinates;
     if(this.state.email === '') {
       this.setState({ message: "Ouch: email is required" });
     }
+    
     axios.post(URL, {
-      x: 2,
-      y: 2,
+      x: x,
+      y: y,
       steps: this.state.steps,
       email: this.state.email
     })
@@ -123,7 +133,7 @@ export default class AppClass extends React.Component {
     return (
       <div id="wrapper" className={className}>
         <div className="info">
-          <h3 id="coordinates">Coordinates {this.getXY(this.state.index)}</h3>
+          <h3 id="coordinates">{this.getXYMessage()}</h3>
           <h3 id="steps">You moved {this.state.steps} {this.state.steps === 1 ? 'time' : 'times'}</h3>
         </div>
         <div id="grid">
