@@ -116,7 +116,6 @@ export default function AppFunctional(props) {
       console.error(err);
     })
     .finally(() => {
-      setMessage(initialMessage);
       setIndex(initialIndex);
       setEmail(initialEmail);
       setSteps(initialSteps);
@@ -149,7 +148,7 @@ export default function AppFunctional(props) {
         <button onClick={reset} id="reset">reset</button>
       </div>
       <form onSubmit={onSubmit}>
-        <input onChange={onChange} id="email" type="email" placeholder="type email"></input>
+        <input onChange={onChange} id="email" type="email" placeholder="type email" value={email}></input>
         <input id="submit" type="submit"></input>
       </form>
     </div>

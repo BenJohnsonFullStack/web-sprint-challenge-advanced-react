@@ -1,6 +1,8 @@
 import React from 'react'
 import axios from 'axios'
 
+const URL = "http://localhost:9000/api/result";
+
 // Suggested initial states
 const initialMessage = ''
 const initialEmail = ''
@@ -105,13 +107,13 @@ export default class AppClass extends React.Component {
       email: this.state.email
     })
     .then((res) => {
-      this.setState(res.data.message);
+      this.setState({ message: res.data.message });
     })
     .catch((err) => {
       console.error(err);
     })
     .finally(() => {
-      this.setState({email: ''});
+      this.setState({ email: initialEmail, steps: initialSteps, index: initialIndex });
     })
   }
 
@@ -143,7 +145,7 @@ export default class AppClass extends React.Component {
           <button onClick={this.reset} id="reset">reset</button>
         </div>
         <form onSubmit={this.onSubmit}>
-          <input onChange={this.onChange} id="email" type="email" placeholder="type email"></input>
+          <input onChange={this.onChange} id="email" type="email" placeholder="type email" value={this.state.email}></input>
           <input id="submit" type="submit"></input>
         </form>
       </div>
