@@ -1,4 +1,6 @@
 import React from 'react'
+import axios from 'axios'
+import { useState } from 'react'
 
 // Suggested initial states
 const initialMessage = ''
@@ -48,7 +50,25 @@ export default class AppClass extends React.Component {
   }
 
   onSubmit = (evt) => {
-    // Use a POST request to send a payload to the server.
+    evt.preventDefault();
+    axios.post(URL, {
+      x: 2,
+      y: 2,
+      steps: this.state.steps,
+      email: this.state.email
+    })
+    .then((res) => {
+      this.setState(res.data.message);
+    })
+    .catch((err) => {
+      console.error(err);
+    })
+    .finally(() => {
+      this.setState(this.initialState.initialMessage);
+      this.setState(this.initialState.initialIndex);
+      this.setState(this.initialState.initialEmail);
+      this.setState(this.initialState.initialSteps);
+    })
   }
 
   render() {
