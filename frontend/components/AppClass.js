@@ -93,12 +93,11 @@ export default class AppClass extends React.Component {
   }
 
   move = (evt) => {
-    // This event handler can use the helper above to obtain a new index for the "B",
-    // and change any states accordingly.
+    this.getNextIndex(evt.target.id);
   }
 
   onChange = (evt) => {
-    // You will need this to update the value of the input.
+    this.setState({ ...this.state, email: evt.target.value });
   }
 
   onSubmit = (evt) => {
