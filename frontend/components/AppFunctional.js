@@ -119,7 +119,8 @@ export default function AppFunctional(props) {
       setSteps(initialSteps);
     })
     .catch((err) => {
-      console.error(err);
+      console.log(err);
+      setMessage(err.response.data.message);
     })
   }
   
