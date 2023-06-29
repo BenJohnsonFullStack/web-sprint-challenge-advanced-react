@@ -103,6 +103,9 @@ export default function AppFunctional(props) {
 
   function onSubmit(evt) {
     evt.preventDefault();
+    if(email === '') {
+      setMessage("Ouch: email is required");
+    }
     axios.post(URL, {
       x: 2,
       y: 2,
@@ -111,16 +114,15 @@ export default function AppFunctional(props) {
     })
     .then((res) => {
       setMessage(res.data.message);
-    })
-    .catch((err) => {
-      console.error(err);
-    })
-    .finally(() => {
       setIndex(initialIndex);
       setEmail(initialEmail);
       setSteps(initialSteps);
     })
+    .catch((err) => {
+      console.error(err);
+    })
   }
+  
 
   return (
     <div id="wrapper" className={props.className}>

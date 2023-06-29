@@ -100,6 +100,9 @@ export default class AppClass extends React.Component {
 
   onSubmit = (evt) => {
     evt.preventDefault();
+    if(this.state.email === '') {
+      this.setState({ message: "Ouch: email is required" });
+    }
     axios.post(URL, {
       x: 2,
       y: 2,
@@ -108,12 +111,10 @@ export default class AppClass extends React.Component {
     })
     .then((res) => {
       this.setState({ message: res.data.message });
+      this.setState({ email: initialEmail, steps: initialSteps, index: initialIndex });
     })
     .catch((err) => {
       console.error(err);
-    })
-    .finally(() => {
-      this.setState({ email: initialEmail, steps: initialSteps, index: initialIndex });
     })
   }
 
