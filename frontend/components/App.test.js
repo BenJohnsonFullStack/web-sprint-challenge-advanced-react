@@ -18,7 +18,7 @@ test('steps increment on upward move', () => {
   render(<AppFunctional />);
   const up = screen.getByText(/up/i);
   fireEvent.click(up);
-  const steps = screen.getByText(/you moved 1 times/i);
+  const steps = screen.getByText(/you moved 1 time/i);
   expect(steps).toBeInTheDocument;
 });
 
@@ -52,7 +52,7 @@ test('steps increment on upward move', () => {
   render(<AppClass />);
   const up = screen.getByText(/up/i);
   fireEvent.click(up);
-  const steps = screen.getByText(/you moved 1 times/i);
+  const steps = screen.getByText(/you moved 1 time/i);
   expect(steps).toBeInTheDocument;
 });
 
