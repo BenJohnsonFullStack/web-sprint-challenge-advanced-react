@@ -114,12 +114,9 @@ export default function AppFunctional(props) {
     })
     .then((res) => {
       setMessage(res.data.message);
-      setIndex(initialIndex);
       setEmail(initialEmail);
-      setSteps(initialSteps);
     })
     .catch((err) => {
-      console.log(err);
       setMessage(err.response.data.message);
     })
   }
