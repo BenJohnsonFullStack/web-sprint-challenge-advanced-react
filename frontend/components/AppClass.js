@@ -7,19 +7,17 @@ const initialEmail = ''
 const initialSteps = 0
 const initialIndex = 4 // the index the "B" is at
 
-const URL = "http://localhost:9000/api/result";
-
-const gridArr = [0,1,2,3,4,5,6,7,8];
+const initialState = {
+  message: initialMessage,
+  email: initialEmail,
+  index: initialIndex,
+  steps: initialSteps,
+}
 
 export default class AppClass extends React.Component {
   constructor() {
     super();
-    this.state = {
-      message: initialMessage,
-      email: initialEmail,
-      index: initialIndex,
-      steps: initialSteps,
-    }
+    this.state = initialState;
   }
   // THE FOLLOWING HELPERS ARE JUST RECOMMENDATIONS.
   // You can delete them and build your own logic from scratch.
@@ -57,37 +55,35 @@ export default class AppClass extends React.Component {
   }
 
   reset = () => {
-    this.setState(this.state.initialMessage);
-    this.setState(this.state.initialIndex);
-    this.setState(this.state.initialEmail);
-    this.setState(this.state.initialSteps);
+    this.setState(initialState);
+    console.log(this.state);
   }
 
   getNextIndex = (direction) => {
     if(this.state.index % 3 === 0 && direction === "left") {
-      this.setState({ ...this.state, message: `You can't go ${direction}` });
+      this.setState({ message: `You can't go ${direction}` });
       return this.state.index;
     } else if(this.state.index >= 0 && this.state.index <= 2 && direction === "up") {
-      this.setState({ ...this.state, message: `You can't go ${direction}` });
+      this.setState({ message: `You can't go ${direction}` });
       return this.state.index;
     } else if(this.state.index >= 6 && this.state.index <= 8 && direction === "down") {
-      this.setState({ ...this.state, message: `You can't go ${direction}` });
+      this.setState({ message: `You can't go ${direction}` });
       return this.state.index;
     } else if((this.state.index === 2 || this.state.index === 5 || this.state.index === 8) && direction === "right") {
-      this.setState({ ...this.state, message: `You can't go ${direction}` });
+      this.setState({ message: `You can't go ${direction}` });
       return this.state.index;
     } else if(direction === "left") {
-      this.setState({ ...this.state, index: this.state.index - 1 });
-      this.setState({ ...this.state, steps: this.state.steps + 1 });
+      this.setState({ index: this.state.index - 1 });
+      this.setState({ steps: this.state.steps + 1 });
     } else if(direction === "up") {
-      this.setState({ ...this.state, message: this.state.index - 3 });
-      this.setState({ ...this.state, steps: this.state.steps + 1 });
+      this.setState({ index: this.state.index - 3 });
+      this.setState({ steps: this.state.steps + 1 });
     } else if(direction === "down") {
-      this.setState({ ...this.state, index: this.state.index + 3 });
-      this.setState({ ...this.state, steps: this.state.steps + 1 });
+      this.setState({ index: this.state.index + 3 });
+      this.setState({ steps: this.state.steps + 1 });
     } else if(direction === "right") {
-      this.setState({ ...this.state, index: this.state.index + 1 });
-      this.setState({ ...this.state, steps: this.state.steps + 1 });
+      this.setState({ index: this.state.index + 1 });
+      this.setState({ steps: this.state.steps + 1 });
     }
     return this.state.index;
   }
@@ -115,10 +111,7 @@ export default class AppClass extends React.Component {
       console.error(err);
     })
     .finally(() => {
-      this.setState({ message: this.state.initialMessage });
-      this.setState({ index: this.state.initialIndex });
-      this.setState({ email: this.state.initialEmail });
-      this.setState({ steps: this.state.initialSteps });
+      this.setState({email: ''});
     })
   }
 
@@ -132,7 +125,7 @@ export default class AppClass extends React.Component {
         </div>
         <div id="grid">
           {
-            gridArr.map(idx => (
+            [0,1,2,3,4,5,6,7,8].map(idx => (
               <div key={idx} className={`square${idx === this.state.index ? ' active' : ''}`}>
                 {idx === this.state.index ? 'B' : null}
               </div>

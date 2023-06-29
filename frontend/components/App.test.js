@@ -1,5 +1,6 @@
 import React from "react"
 import AppFunctional from "./AppFunctional"
+import AppClass from "./AppClass"
 import { fireEvent, screen, render } from "@testing-library/react"
 import '@testing-library/jest-dom/extend-expect'
 
@@ -31,6 +32,40 @@ test('left button changes coordinates', () => {
 
 test('reset button sets all to initial values', () => {
   render(<AppFunctional />);
+  const reset = screen.getByText(/reset/i);
+  fireEvent.click(reset);
+  const initialCoordinates = screen.getByText('Coordinates (2, 2)');
+  expect(initialCoordinates).toBeInTheDocument;
+});
+
+test('render without any errors', () => {
+  render(<AppClass />);
+});
+
+test('Coordinates display on the screen.', () => {
+  render(<AppClass />);
+  const coordinates = screen.getByText(/coordinates/i);
+  expect(coordinates).toBeInTheDocument;
+});
+
+test('steps increment on upward move', () => {
+  render(<AppClass />);
+  const up = screen.getByText(/up/i);
+  fireEvent.click(up);
+  const steps = screen.getByText(/you moved 1 times/i);
+  expect(steps).toBeInTheDocument;
+});
+
+test('left button changes coordinates', () => {
+  render(<AppClass />);
+  const left = screen.getByText(/left/i);
+  fireEvent.click(left);
+  const newCoordinates = screen.getByText('Coordinates (1, 2)');
+  expect(newCoordinates).toBeInTheDocument;
+});
+
+test('reset button sets all to initial values', () => {
+  render(<AppClass />);
   const reset = screen.getByText(/reset/i);
   fireEvent.click(reset);
   const initialCoordinates = screen.getByText('Coordinates (2, 2)');
