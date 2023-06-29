@@ -19,36 +19,45 @@ export default function AppFunctional(props) {
   // THE FOLLOWING HELPERS ARE JUST RECOMMENDATIONS.
   // You can delete them and build your own logic from scratch.
 
-  function getXY(b, x, y) {
-    if(b === 0) {
+  function getXY() {
+    let x, y;
+    if(index === 0) {
       x = 1;
       y = 1;
-    } else if(b === 1) {
+    } else if(index === 1) {
       x = 2;
       y = 1;
-    } else if(b === 2) {
+    } else if(index === 2) {
       x = 3;
       y = 1;
-    } else if(b === 3) {
+    } else if(index === 3) {
       x = 1;
       y = 2;
-    } else if(b === 4) {
+    } else if(index === 4) {
       x = 2;
       y = 2;
-    } else if(b === 5) {
+    } else if(index === 5) {
       x = 3;
       y = 2;
-    } else if(b === 6) {
+    } else if(index === 6) {
       x = 1;
       y = 3;
-    } else if(b === 7) {
+    } else if(index === 7) {
       x = 2;
       y = 3;
-    } else if(b === 8) {
+    } else if(index === 8) {
       x = 3;
       y = 3;
     }
-    return `(${x}, ${y})`;
+    
+    return [x,y];
+
+  }
+
+  function getXYMessage() {
+    let coordinates = getXY();
+    const [ x, y ] = coordinates;
+    return `Coordinates (${x}, ${y})`;
   }
 
   function reset() {
@@ -103,12 +112,14 @@ export default function AppFunctional(props) {
 
   function onSubmit(evt) {
     evt.preventDefault();
+    let coordinates = getXY();
+    const [ x, y ] = coordinates;
     if(email === '') {
       setMessage("Ouch: email is required");
     }
     axios.post(URL, {
-      x: 2,
-      y: 2,
+      x: x,
+      y: y,
       steps: steps,
       email: email
     })
@@ -125,7 +136,7 @@ export default function AppFunctional(props) {
   return (
     <div id="wrapper" className={props.className}>
       <div className="info">
-        <h3 id="coordinates">Coordinates {getXY(index)}</h3>
+        <h3 id="coordinates">{getXYMessage()}</h3>
         <h3 id="steps">You moved {steps} {steps === 1 ? 'time' : 'times'}</h3>
       </div>
       <div id="grid">
